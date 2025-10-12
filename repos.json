@@ -1,7 +1,7 @@
 [  {
     "kernelSource": {
       "name": "whyred",
-      "repo": "https://github.com/HK4567/android_kernel_xiaomi_whyred/tree/hk4567",
+      "repo": "https://github.com/HK4567/android_kernel_xiaomi_whyred.git",
       "branch": "hk4567",
       "device": "whyred"
     },
