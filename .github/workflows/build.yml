@@ -154,6 +154,7 @@ jobs:
         run: |
           echo "PATH Variable: $PATH"
           make ${args}
+          ls out/arch/arm64/boot
 
       - name: "💛 Upload Image"
         uses: actions/upload-artifact@v4
