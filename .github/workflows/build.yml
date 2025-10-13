@@ -153,7 +153,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          make
+          make ${args}
           ls out/arch/arm64/boot
 
       - name: "💛 Upload Image"
