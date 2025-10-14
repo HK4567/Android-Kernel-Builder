@@ -162,6 +162,7 @@ jobs:
           ls
           cd /home
           sudo find -name .config
+          mv /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/.config /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/config
           
 
       - name: "💙 Upload Image.gz-dtb"
@@ -176,6 +177,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: config(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/.config
+          path: /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/config
           if-no-files-found: ignore
           retention-days: 7
