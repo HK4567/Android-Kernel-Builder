@@ -130,6 +130,9 @@ jobs:
           ls -al
           gzip .config
           ls -al
+          mv .config.gz config.gz
+          echo "------------------------"
+          ls
           cd ..
 
       - name: "💙 Upload Image.gz-dtb"
