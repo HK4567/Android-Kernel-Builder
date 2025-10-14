@@ -154,12 +154,12 @@ jobs:
         run: |
           echo "PATH Variable: $PATH"
           #make ${args}
+          echo "--------------"
           pwd
-          ls -al
+          echo "--------------"
+          ls
           cd ..
-          ls -al
-          cd kernel
-          ls -al
+          ls
           find -name .config
           
 
@@ -175,6 +175,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: config(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/.config
+          path: /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/.config
           if-no-files-found: ignore
           retention-days: 7
