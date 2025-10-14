@@ -161,7 +161,7 @@ jobs:
           cd ..
           ls
           cd /home
-          find -name .config
+          sudo find -name .config
           
 
       - name: "💙 Upload Image.gz-dtb"
