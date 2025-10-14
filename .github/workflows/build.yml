@@ -35,19 +35,12 @@ jobs:
       matrix:
         repos: ${{ fromJSON(needs.Set-repos.outputs.repos) }}
     env:
-      kernelDir: ${{ matrix.repos.kernelSource.name }}_${{ matrix.repos.kernelSource.device }}
-
       kernelName: ${{ matrix.repos.kernelSource.name }}
       kernelRepo: ${{ matrix.repos.kernelSource.repo }}
       kernelBranch: ${{ matrix.repos.kernelSource.branch }}
       kernelDevice: ${{ matrix.repos.kernelSource.device }}
-
       DEFCONFIG_NAME: ${{ matrix.repos.kernelSource.device }}_defconfig
-
-      withKernelSU: ${{ matrix.repos.withKernelSU }}
     steps:
-      - name: "✨ Create working dir"
-        run: mkdir -p $kernelDir
 
       - name: "⭐ Install prerequisites"
         run: |
@@ -55,12 +48,12 @@ jobs:
           sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python-is-python3 python3 libarchive-tools
 
       - name: "🌟 Clone kernel source => (${{ env.kernelRepo }})"
-        working-directory: ./${{ env.kernelDir }}
+        working-directory: ${{GITHUB_WORKSPACE}}
         run: |
           git clone --recursive --branch $kernelBranch $kernelRepo $kernelName --depth=1
 
       - name: "💫 Get toolchains"
-        working-directory: ./${{ env.kernelDir }}
+        working-directory: ${{GITHUB_WORKSPACE}}
         env:
           toolchains: "${{ toJSON(matrix.repos.toolchains) }}"
         run: |
@@ -79,7 +72,7 @@ jobs:
 
       - name: "😎 Set args"
         id: generate-args
-        working-directory: ./${{ env.kernelDir }}
+        working-directory: ${{GITHUB_WORKSPACE}}/$kernelName
         env:
           params: "${{ toJSON(matrix.repos.params) }}"
           THREAD: $(nproc --all)
@@ -97,8 +90,7 @@ jobs:
 
           args="-j$(nproc --all)"
           if [ -n "${{ env.OUT_DIR }}" ]; then
-            mkdir -p $(pwd)/${{ env.OUT_DIR }}
-            args="$args O=$(pwd)/${{ env.OUT_DIR }}"
+            args="$args O=${{ env.OUT_DIR }}"
           fi
           if [ -n "$ARCH" ]; then
             args="$args ARCH=$ARCH"
@@ -120,27 +112,8 @@ jobs:
           fi
           echo "args=$args" >> $GITHUB_OUTPUT
 
-      - name: "😋 Update KernelSU"
-        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
-        if: ${{ env.withKernelSU == 'true' }}
-        run: |
-          if [ -d "./KernelSU" ]; then
-            rm -rf "./KernelSU"
-          fi
-          if [ -d "./drivers/kernelsu" ]; then
-            rm -rf "./drivers/kernelsu"
-          fi
-
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
-
-          echo -e "\nCONFIG_KPROBES=y" >> ./arch/${{ env.ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-          echo -e "\nCONFIG_HAVE_KPROBES=y" >> ./arch/${{ env.ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-          echo -e "\nCONFIG_KPROBE_EVENTS=y" >> ./arch/${{ env.ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-
-          cat ./arch/${{ env.ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-
       - name: "👍 Make defconfig"
-        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
+        working-directory: ${{GITHUB_WORKSPACE}}/${{ env.kernelName }}
         env:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
@@ -148,22 +121,22 @@ jobs:
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
       - name: "🎶 Build kernel"
-        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
+        working-directory: ${{GITHUB_WORKSPACE}}/${{ env.kernelName }}
         env:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
           #make ${args}
-          cd /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out
+          cd out
           gzip -9 .config
           ls
-          cd -
+          cd ..
 
       - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
         with:
           name: Image.gz-dtb(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
+          path: ${{GITHUB_WORKSPACE}}/${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
           if-no-files-found: ignore
           retention-days: 7
 
@@ -171,6 +144,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: config
-          path: /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/config.gz
+          path: ${{GITHUB_WORKSPACE}}/${{ env.kernelName }}/out/config.gz
           if-no-files-found: ignore
           retention-days: 7
