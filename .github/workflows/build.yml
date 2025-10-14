@@ -160,7 +160,7 @@ jobs:
           ls
           cd ..
           ls
-          cd /
+          cd /home
           find -name .config
           
 
