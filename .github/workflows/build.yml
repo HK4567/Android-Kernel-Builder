@@ -157,7 +157,10 @@ jobs:
           pwd
           ls -al
           cd ..
-          tree
+          ls -al
+          cd kernel
+          ls -al
+          
 
       - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
@@ -171,6 +174,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: config(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/.config
+          path: ./${{ env.kernelDir }}/kernel/${{ env.OUT_DIR }}/.config
           if-no-files-found: ignore
           retention-days: 7
