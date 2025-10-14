@@ -155,15 +155,7 @@ jobs:
           echo "PATH Variable: $PATH"
           make ${args}
           pwd
-          ls
-
-      - name: "💛 Upload Image"
-        uses: actions/upload-artifact@v4
-        with:
-          name: Image(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image
-          if-no-files-found: ignore
-          retention-days: 7
+          ls -al
 
       - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
@@ -173,18 +165,10 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-      - name: "💜 Upload dtb"
+      - name: "💜 Upload config"
         uses: actions/upload-artifact@v4
         with:
-          name: dtb(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/dtb
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: "❤️ Upload dtbo.img"
-        uses: actions/upload-artifact@v4
-        with:
-          name: dtbo.img(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/dtbo.img
+          name: config(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
+          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/.config
           if-no-files-found: ignore
           retention-days: 7
