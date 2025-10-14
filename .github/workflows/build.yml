@@ -154,16 +154,9 @@ jobs:
         run: |
           echo "PATH Variable: $PATH"
           #make ${args}
-          echo "--------------"
-          pwd
-          echo "--------------"
+          cd /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out
+          gzip -9 .config
           ls
-          cd ..
-          ls
-          cd /home
-          sudo find -name .config
-          mv /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/.config /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/config
-          
 
       - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
@@ -176,7 +169,7 @@ jobs:
       - name: "💜 Upload config"
         uses: actions/upload-artifact@v4
         with:
-          name: config(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/config
+          name: config
+          path: /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out/config.gz
           if-no-files-found: ignore
           retention-days: 7
