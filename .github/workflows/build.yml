@@ -157,6 +157,7 @@ jobs:
           cd /home/runner/work/Android-Kernel-Builder/Android-Kernel-Builder/kernel_whyred-newcam/out
           gzip -9 .config
           ls
+          cd $pwd
 
       - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
