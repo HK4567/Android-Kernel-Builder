@@ -153,9 +153,11 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          make ${args}
+          #make ${args}
           pwd
           ls -al
+          cd ..
+          tree
 
       - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
