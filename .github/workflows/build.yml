@@ -125,16 +125,18 @@ jobs:
         run: |
           echo "PATH Variable: $PATH"
           #make ${args}
-          cd out
-          gzip -9 .config
           ls
+          cd out
+          ls -al
+          gzip .config
+          ls -al
           cd ..
 
       - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
         with:
           name: Image.gz-dtb(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: $kernelName/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
+          path: ${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
           if-no-files-found: ignore
           retention-days: 7
 
