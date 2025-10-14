@@ -154,7 +154,8 @@ jobs:
         run: |
           echo "PATH Variable: $PATH"
           make ${args}
-          ls out/arch/arm64/boot
+          pwd
+          ls
 
       - name: "💛 Upload Image"
         uses: actions/upload-artifact@v4
@@ -164,11 +165,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-      - name: "💙 Upload Image.gz"
+      - name: "💙 Upload Image.gz-dtb"
         uses: actions/upload-artifact@v4
         with:
-          name: Image.gz(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz
+          name: Image.gz-dtb(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
+          path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
           if-no-files-found: ignore
           retention-days: 7
 
