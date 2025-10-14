@@ -48,12 +48,10 @@ jobs:
           sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python-is-python3 python3 libarchive-tools
 
       - name: "🌟 Clone kernel source => (${{ env.kernelRepo }})"
-        working-directory: $GITHUB_WORKSPACE
         run: |
           git clone --recursive --branch $kernelBranch $kernelRepo $kernelName --depth=1
 
       - name: "💫 Get toolchains"
-        working-directory: $GITHUB_WORKSPACE
         env:
           toolchains: "${{ toJSON(matrix.repos.toolchains) }}"
         run: |
@@ -72,7 +70,7 @@ jobs:
 
       - name: "😎 Set args"
         id: generate-args
-        working-directory: $GITHUB_WORKSPACE/$kernelName
+        working-directory: ./$kernelName
         env:
           params: "${{ toJSON(matrix.repos.params) }}"
           THREAD: $(nproc --all)
@@ -113,7 +111,7 @@ jobs:
           echo "args=$args" >> $GITHUB_OUTPUT
 
       - name: "👍 Make defconfig"
-        working-directory: $GITHUB_WORKSPACE/${{ env.kernelName }}
+        working-directory: ./$kernelName
         env:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
@@ -121,7 +119,7 @@ jobs:
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
       - name: "🎶 Build kernel"
-        working-directory: $GITHUB_WORKSPACE/${{ env.kernelName }}
+        working-directory: ./$kernelName
         env:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
@@ -136,7 +134,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Image.gz-dtb(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: $GITHUB_WORKSPACE/${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
+          path: ./$kernelName/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
           if-no-files-found: ignore
           retention-days: 7
 
@@ -144,6 +142,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: config
-          path: $GITHUB_WORKSPACE/${{ env.kernelName }}/out/config.gz
+          path: ./$kernelName/out/config.gz
           if-no-files-found: ignore
           retention-days: 7
