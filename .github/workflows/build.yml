@@ -124,7 +124,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          #make ${args}
+          make ${args}
           ls
           cd out
           ls -al
