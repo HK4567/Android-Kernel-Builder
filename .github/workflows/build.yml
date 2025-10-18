@@ -117,6 +117,7 @@ jobs:
         run: |
           echo "PATH Variable: $PATH"
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
+          scripts/config --file arch/arm64/configs/whyred-newcam_defconfig - d ANDROID_PARANOID_NETWORK
 
       - name: "🎶 Build kernel"
         working-directory: ${{ env.kernelName }}
