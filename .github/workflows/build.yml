@@ -116,8 +116,8 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
+          scripts/config --file arch/arm64/configs/whyred-newcam_defconfig -d ANDROID_PARANOID_NETWORK
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
-          scripts/config --file arch/arm64/configs/whyred-newcam_defconfig - d ANDROID_PARANOID_NETWORK
 
       - name: "🎶 Build kernel"
         working-directory: ${{ env.kernelName }}
