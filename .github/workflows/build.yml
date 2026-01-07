@@ -129,6 +129,7 @@ jobs:
           ls
           cd out
           ls -al
+          ls arch/arm64/boot
           gzip .config
           ls -al
           mv .config.gz config.gz
@@ -139,8 +140,8 @@ jobs:
       - name: "💙 Upload Image"
         uses: actions/upload-artifact@v4
         with:
-          name: Image.gz(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz
+          name: Image(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
+          path: ${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image
           if-no-files-found: ignore
           retention-days: 7
 
