@@ -136,11 +136,11 @@ jobs:
           ls
           cd ..
 
-      - name: "💙 Upload Image.gz-dtb"
+      - name: "💙 Upload Image"
         uses: actions/upload-artifact@v4
         with:
-          name: Image.gz-dtb(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
-          path: ${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz-dtb
+          name: Image.gz_(${{ env.kernelDevice }}-${{ env.kernelName }}-${{ env.kernelBranch }})
+          path: ${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz
           if-no-files-found: ignore
           retention-days: 7
 
