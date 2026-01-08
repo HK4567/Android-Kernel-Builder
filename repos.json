@@ -3,7 +3,7 @@
       "name": "HK4567",
       "repo": "https://github.com/HK4567/android_kernel_common_oneplus_sm8750.git",
       "branch": "oneplus/sm8750_b_16.0.0_oneplus_13t",
-      "device": "gki"
+      "device": "gki-lxc"
     },
     "toolchains": [
       {
