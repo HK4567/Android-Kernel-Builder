@@ -116,10 +116,11 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
+          
           cd arch/arm64/configs/
           wget https://raw.githubusercontent.com/HK4567/Android-Kernel-Builder/refs/heads/main/gki-lxc_defconfig
           cd -
-          make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
+          LTO=full make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
       - name: "🎶 Build kernel"
         working-directory: ${{ env.kernelName }}
@@ -127,7 +128,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          make ${args}
+          LTO=full make ${args}
           ls
           cd out
           ls -al
