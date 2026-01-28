@@ -116,9 +116,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          git clone https://github.com/sunflower2333/android-kernel-build --depth=1
-          ls
-          git apply ./android-kernel-build/patches/*
+          
           cd arch/arm64/configs/
           wget https://raw.githubusercontent.com/HK4567/Android-Kernel-Builder/refs/heads/main/gki-lxc_defconfig
           cd -
