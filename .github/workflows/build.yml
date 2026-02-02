@@ -119,9 +119,14 @@ jobs:
           
           cd arch/arm64/configs/
           wget https://raw.githubusercontent.com/HK4567/Android-Kernel-Builder/refs/heads/main/gki-lxc_defconfig
+          sed -i "/CONFIG_PID_NS is not set/d" gki_defconfig
           echo "CONFIG_USER_NS=y" >> gki_defconfig
           echo "CONFIG_SYSVIPC=y" >> gki_defconfig
           echo "CONFIG_POSIX_MQUEUE=y" >> gki_defconfig
+          echo "CONFIG_UTS_NS=y" >> gki_defconfig
+          echo "CONFIG_IPC_NS=y" >> gki_defconfig
+          echo "CONFIG_NET_NS=y" >> gki_defconfig
+          echo "CONFIG_PID_NS=y" >> gki_defconfig
           cd -
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
