@@ -83,7 +83,6 @@ jobs:
           CLANG_TRIPLE=$(echo $params | jq -r ".CLANG_TRIPLE")
           AR=$(echo $params | jq -r ".AR")
           CC=$(echo $params | jq -r ".CC")
-          LTO=thin
           echo "ARCH=$ARCH" >> $GITHUB_ENV
 
           args="-j$(nproc --all)"
@@ -128,8 +127,9 @@ jobs:
           echo "CONFIG_NET_NS=y" >> gki_defconfig
           echo "CONFIG_PID_NS=y" >> gki_defconfig
           echo "CONFIG_CGROUP_DEVICE=y" >> gki_defconfig
+          echo "CONFIG_LTO_CLANG_THIN=y" >> gki_defconfig
           cd -
-          make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
+          make LTO=thin ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
       - name: "🎶 Build kernel"
         working-directory: ${{ env.kernelName }}
@@ -137,7 +137,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          make ${args}
+          make LTO=thin ${args}
           ls
           cd out
           ls -al
