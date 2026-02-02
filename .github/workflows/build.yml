@@ -5,8 +5,8 @@ env:
   OUT_DIR: "out"
 
 on:
-  repository_dispatch: 
-    types: [1]
+  workflow_dispatch:
+
 jobs:
   Set-repos:
     name: "🐂 Parse repos.json"
