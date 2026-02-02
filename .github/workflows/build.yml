@@ -119,6 +119,7 @@ jobs:
           
           cd arch/arm64/configs/
           wget https://raw.githubusercontent.com/HK4567/Android-Kernel-Builder/refs/heads/main/gki-lxc_defconfig
+          echo "CONFIG_USER_NS=y" >> gki_defconfig
           cd -
           LTO=full make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
