@@ -121,6 +121,7 @@ jobs:
           wget https://raw.githubusercontent.com/HK4567/Android-Kernel-Builder/refs/heads/main/gki-lxc_defconfig
           echo "CONFIG_USER_NS=y" >> gki_defconfig
           echo "CONFIG_SYSVIPC=y" >> gki_defconfig
+          echo "CONFIG_POSIX_MQUEUE=y" >> gki_defconfig
           cd -
           LTO=thin make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
@@ -130,7 +131,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          LTO=full make ${args}
+          LTO=thin make ${args}
           ls
           cd out
           ls -al
