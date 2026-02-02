@@ -1,12 +1,12 @@
-name: "Build kernels"
+name: "编译内核"
 
 env:
   CONFIGURATION: "repos.json"
   OUT_DIR: "out"
 
 on:
-  workflow_dispatch:
-
+  repository_dispatch: 
+    types: []
 jobs:
   Set-repos:
     name: "🐂 Parse repos.json"
@@ -116,8 +116,7 @@ jobs:
         run: |
           echo "PATH Variable: $PATH"
           
-          cd arch/arm64/configs/
-          wget https://raw.githubusercontent.com/HK4567/Android-Kernel-Builder/refs/heads/main/gki-lxc_defconfig
+          cd arch/arm64/configs
           sed -i "/CONFIG_PID_NS is not set/d" gki_defconfig
           echo "CONFIG_USER_NS=y" >> gki_defconfig
           echo "CONFIG_SYSVIPC=y" >> gki_defconfig
@@ -130,7 +129,7 @@ jobs:
           echo "CONFIG_LTO_CLANG_THIN=y" >> gki_defconfig
           echo "CONFIG_CGROUP_FREEZER=y" >> gki_defconfig
           cd -
-          make LTO=thin ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
+          make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
       - name: "🎶 Build kernel"
         working-directory: ${{ env.kernelName }}
@@ -138,30 +137,12 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          make LTO=thin ${args}
-          ls
-          cd out
-          ls -al
-          ls arch/arm64/boot
-          gzip .config
-          ls -al
-          mv .config.gz config.gz
-          echo "------------------------"
-          ls
-          cd ..
+          make ${args}
 
       - name: "💙 Upload Image"
         uses: actions/upload-artifact@v4
         with:
           name: Image.gz(${{ env.kernelDevice }}-${{ env.kernelName }})
           path: ${{ env.kernelName }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image.gz
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: "💜 Upload config"
-        uses: actions/upload-artifact@v4
-        with:
-          name: config
-          path: ${{ env.kernelName }}/out/config.gz
           if-no-files-found: ignore
           retention-days: 7
