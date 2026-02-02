@@ -128,6 +128,7 @@ jobs:
           echo "CONFIG_PID_NS=y" >> gki_defconfig
           echo "CONFIG_CGROUP_DEVICE=y" >> gki_defconfig
           echo "CONFIG_LTO_CLANG_THIN=y" >> gki_defconfig
+          echo "CONFIG_CGROUP_FREEZER=y" >> gki_defconfig
           cd -
           make LTO=thin ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
