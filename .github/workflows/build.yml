@@ -118,6 +118,7 @@ jobs:
           
           cd arch/arm64/configs
           sed -i "/CONFIG_PID_NS is not set/d" gki_defconfig
+          sed -i "/CONFIG_MODULE_SCMVERSION/d" gki_defconfig
           echo "CONFIG_USER_NS=y" >> gki_defconfig
           echo "CONFIG_SYSVIPC=y" >> gki_defconfig
           echo "CONFIG_POSIX_MQUEUE=y" >> gki_defconfig
