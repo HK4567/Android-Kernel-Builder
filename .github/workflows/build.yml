@@ -128,7 +128,7 @@ jobs:
           echo "CONFIG_PID_NS=y" >> gki_defconfig
           echo "CONFIG_CGROUP_DEVICE=y" >> gki_defconfig
           echo "CONFIG_DEVTMPFS=y" >> gki_defconfig
-          echo "CONFIG_CGROUP_FREEZER=y" >> gki_defconfig
+          echo "CONFIG_MACVTAP=y" >> gki_defconfig
           echo "CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=y" >> gki_defconfig
           echo "CONFIG_NETFILTER_XT_TARGET_CHECKSUM=y" >> gki_defconfig
           echo "CONFIG_IP6_NF_NAT=y" >> gki_defconfig
