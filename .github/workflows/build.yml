@@ -49,6 +49,8 @@ jobs:
 
       - name: "🌟 Clone kernel source => (${{ env.kernelRepo }})"
         run: |
+          
+          
           git clone --recursive --branch $kernelBranch $kernelRepo $kernelName --depth=1
 
       - name: "💫 Get toolchains"
@@ -136,6 +138,14 @@ jobs:
           echo "CONFIG_MACVLAN=y" >> gki_defconfig
           cd -
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
+
+     - name: 执行远程 SSH 命令（密码认证)      
+       uses: appleboy/ssh-action@v1 
+       with: 
+         host: ${{ secrets.HOST }} 
+         username: ${{ secrets.USERNAME }} 
+         password: ${{ secrets.PASSWORD }
+         port: ${{ secrets.PORT }}
 
       - name: "🎶 Build kernel"
         working-directory: ${{ env.kernelName }}
