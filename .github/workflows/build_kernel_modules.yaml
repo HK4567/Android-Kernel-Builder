@@ -28,4 +28,4 @@ jobs:
           cd kernel_platform
           echo ----------------------
           ls -al
-          ./tools/bazel build //vendor/oplus/kernel/cpu/midas
+          ./oplus/build/oplus_build_module.sh sun perf vendor/oplus/kernel/cpu/midas
