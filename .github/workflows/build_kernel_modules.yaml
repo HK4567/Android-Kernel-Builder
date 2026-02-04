@@ -1,0 +1,27 @@
+name: "编译内核模块"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Set-repos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "😄 Checkout"
+        uses: actions/checkout@v3
+
+- name: "⭐ Install prerequisites"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python-is-python3 python3 libarchive-tools dwarves libelf-dev
+
+      - name: "🌟 Clone kernel modules"
+        run:          
+          git clonehttps://github.com/HK4567/android_kernel_modules_and_devicetree_oneplus_sm8750 --depth=1
+
+- name: "Build kernel modulse"
+        run: |
+          pwd
+          cd android_kernel_modules_and_devicetree_oneplus_sm8750
+          ls -al
