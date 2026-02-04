@@ -25,4 +25,7 @@ jobs:
           pwd
           cd android_kernel_modules_and_devicetree_oneplus_sm8750
           ls -al
-          ./tools/bazel build //vendor/oplus/kernel/power:power_modules
+          cd kernel_platform
+          echo ----------------------
+          ls -al
+          ./tools/bazel build //vendor/oplus/kernel/cpu/midas
