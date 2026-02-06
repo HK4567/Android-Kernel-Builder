@@ -11,6 +11,16 @@ jobs:
       - name: "😄 Checkout"
         uses: actions/checkout@v3
 
+      - name: Maximize build disk space
+        uses: easimon/maximize-build-space@v5
+        with:
+          root-reserve-mb: 1024
+          swap-size-mb: 6144
+          remove-dotnet: 'true'
+          temp-reserve-mb: 1024
+          remove-android: 'true'
+          remove-haskell: 'true'
+        
       - name: "⭐ Install prerequisites"
         run: |
           sudo apt-get update
@@ -31,13 +41,12 @@ jobs:
           mkdir workspace
           cd workspace
           repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b oneplus/sm8750 -m oneplus_13t_b.xml
-          repo sync -c -j$(nproc)
+          repo sync -c -j$(nproc) --depth=1
 
       - name: "Build kernel modulse"
         run: |
           pwd
           cd kernel_manifest
-          repo sync -c -j$(nproc)
           
           ls -al
           ./kernel_platform/build/oplus_build_module.sh sun perf vendor/oplus/kernel/cpu/midas/oplus_bsp_midas.ko
