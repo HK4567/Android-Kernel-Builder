@@ -47,7 +47,6 @@ jobs:
       - name: "Build kernel modulse"
         run: |
           pwd
-          cd kernel_manifest
-          
+          cd workspace/kernel_manifest
           ls -al
           ./kernel_platform/build/oplus_build_module.sh sun perf vendor/oplus/kernel/cpu/midas/oplus_bsp_midas.ko
