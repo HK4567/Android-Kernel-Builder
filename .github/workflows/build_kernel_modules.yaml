@@ -21,8 +21,9 @@ jobs:
 
       - name: "Downloading repo"
         run:
-          curl https://storage.googleapis.com/git-repo-downloads/repo | sudo tee /usr/bin/repo > /dev/null
-          sudo chmod a+x /usr/bin/repo
+          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+          chmod a+x ~/bin/repo
+          export PATH="~/bin:$PATH"
 
       - name: "🌟 Clone kernel modules"
         run:
