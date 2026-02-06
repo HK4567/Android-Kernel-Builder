@@ -20,10 +20,11 @@ jobs:
           dwarves libelf-dev
 
       - name: "Downloading repo"
-        run:
+        run: |
           curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
           chmod a+x ~/bin/repo
           export PATH="~/bin:$PATH"
+          repo --version
 
       - name: "🌟 Clone kernel modules"
         run:
