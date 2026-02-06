@@ -38,4 +38,4 @@ jobs:
           repo sync -c -j$(nproc)
           
           ls -al
-          ./kernel_platform/build/build_module.sh sun perf vendor/oplus/kernel/cpu/midas/oplus_bsp_midas.ko
+          ./kernel_platform/build/oplus_build_module.sh sun perf vendor/oplus/kernel/cpu/midas/oplus_bsp_midas.ko
