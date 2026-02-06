@@ -42,7 +42,7 @@ jobs:
           mkdir workspace
           cd workspace
           repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b oneplus/sm8750 -m oneplus_13t_b.xml
-          repo sync -c -j$(nproc) --depth=1
+          repo sync -c -j$(nproc) --depth=1 --no-tags --force-sync
 
       - name: "Build kernel modulse"
         run: |
