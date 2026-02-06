@@ -27,7 +27,7 @@ jobs:
           echo "~/bin" >> $GITHUB_PATH
 
       - name: "🌟 Clone kernel modules"
-        run:
+        run: |
           repo --version
           repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b oneplus/sm8750 -m oneplus_13t_b.xml
           repo sync -c -j$(nproc)
