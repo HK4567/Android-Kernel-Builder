@@ -21,8 +21,8 @@ jobs:
 
       - name: "🌟 Clone kernel modules"
         run:
-          curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo
-          chmod a+x /usr/bin/repo
+          sudo curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo
+          sudo chmod a+x /usr/bin/repo
 
       - name: "🌟 Clone kernel modules"
         run:
