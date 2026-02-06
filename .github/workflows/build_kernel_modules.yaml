@@ -17,10 +17,15 @@ jobs:
           sudo apt-get install -y build-essential bc curl git zip ftp \
           gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp \
           zstd wget libfl-dev python-is-python3 python3 libarchive-tools \
-          dwarves libelf-dev repo
+          dwarves libelf-dev
 
       - name: "🌟 Clone kernel modules"
-        run:          
+        run:
+          curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo
+          chmod a+x /usr/bin/repo
+
+      - name: "🌟 Clone kernel modules"
+        run:
           repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b oneplus/sm8750 -m oneplus_13t_b.xml
 
       - name: "Build kernel modulse"
