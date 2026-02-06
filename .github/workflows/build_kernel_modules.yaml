@@ -19,9 +19,9 @@ jobs:
           zstd wget libfl-dev python-is-python3 python3 libarchive-tools \
           dwarves libelf-dev
 
-      - name: "🌟 Clone kernel modules"
+      - name: "Downloading repo"
         run:
-          sudo curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo
+          curl https://storage.googleapis.com/git-repo-downloads/repo | sudo tee /usr/bin/repo > /dev/null
           sudo chmod a+x /usr/bin/repo
 
       - name: "🌟 Clone kernel modules"
