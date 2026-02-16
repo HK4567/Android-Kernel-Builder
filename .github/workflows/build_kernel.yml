@@ -137,6 +137,8 @@ jobs:
           echo "CONFIG_IP6_NF_TARGET_MASQUERADE=y" >> gki_defconfig
           echo "CONFIG_MACVLAN=y" >> gki_defconfig
           echo "CONFIG_DYNAMIC_DEBUG" >> gki_defconfig
+          echo "CONFIG_BTRFS_FS=y" >> gki_defconfig
+          echo "CONFIG_BTRFS_FS_POSIX_ACL=y" >> gki_defconfig
           cd -
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
