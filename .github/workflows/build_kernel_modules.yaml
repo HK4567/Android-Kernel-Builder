@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "😄 Checkout"
-        uses: actions/checkout@v3
+      - name: "Checkout"
+        uses: actions/checkout@v6
 
       - name: Free Disk Space
         run: |
@@ -22,7 +22,7 @@ jobs:
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           df -h
         
-      - name: "⭐ Install prerequisites"
+      - name: "Install prerequisites"
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential bc curl git zip ftp \
@@ -37,12 +37,12 @@ jobs:
           chmod a+x ~/bin/repo
           echo "~/bin" >> $GITHUB_PATH
 
-      - name: "🌟 Clone kernel modules"
+      - name: "Clone kernel modules"
         run: |
           mkdir workspace
           cd workspace
           repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b oneplus/sm8750 -m oneplus_13t_b.xml --depth=1
-          repo sync -c -j$(nproc) --no-tags --force-sync
+          repo sync -j$(nproc)
 
       - name: "Build kernel modulse"
         run: |
