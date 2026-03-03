@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v6
+        uses: actions/checkout@main
 
       - name: Free Disk Space
         run: |
@@ -39,9 +39,12 @@ jobs:
 
       - name: "Clone kernel modules"
         run: |
+          mkdir workspace
+          cd workspace
           repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b oneplus/sm8750 -m oneplus_13t_b.xml --depth=1
           repo sync -j$(nproc)
 
       - name: "Build kernel modulse"
         run: |
+          cd workspace
           tree -d .
