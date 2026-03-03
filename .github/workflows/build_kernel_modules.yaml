@@ -46,5 +46,6 @@ jobs:
 
       - name: "Build kernel modulse"
         run: |
-          cd workspace
-          tree -d .
+          cd workspace/kernel_platform
+          tools/bazel build //msm-kernel/drivers/soc/midas:oplus_bsp_midas
+          
