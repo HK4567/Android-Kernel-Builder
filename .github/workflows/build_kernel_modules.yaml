@@ -44,6 +44,4 @@ jobs:
 
       - name: "Build kernel modulse"
         run: |
-          ls
-          ./kernel_platform/oplus/build/oplus_build_module.sh sun perf
-          ls
+          tree -d .
