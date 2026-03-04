@@ -47,8 +47,7 @@ jobs:
       - name: "Build kernel modulse"
         run: |
           cd workspace
-          ./kernel_platform/oplus/build/oplus_setup.sh
+          ./kernel_platform/oplus/build/oplus_setup.sh sun perf
           cd kernel_platform
           tools/bazel query //msm-kernel/drivers/soc/oplus/midas:*
-          tools/bazel build //msm-kernel/drivers/soc/oplus/midas:oplus_bsp_midas
           
