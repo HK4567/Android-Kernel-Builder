@@ -15,20 +15,14 @@ jobs:
         run: |
           sudo docker image prune -a -f
           sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache/CodeQL
-          sudo rm -rf /usr/local/share/boost
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          df -h
         
       - name: "Install prerequisites"
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential bc curl git zip ftp \
-          gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp \
-          zstd wget libfl-dev python-is-python3 python3 libarchive-tools \
-          dwarves libelf-dev
+          sudo apt-get install -y bc curl git gcc-aarch64-linux-gnu libssl-dev wget python-is-python3 python3 rsync
 
       - name: "Downloading repo"
         run: |
@@ -48,9 +42,7 @@ jobs:
         run: |
           cd workspace
           source kernel_platform/oplus/build/oplus_setup.sh sun perf
-
-          bash kernel_platform/oplus/build/oplus_build_module.sh sun perf vendor/oplus/kernel/boot/oplus_phoenix
-
+          init_build_environment
           cd kernel_platform
           tools/bazel query //msm-kernel/drivers/soc/oplus/midas:*
           tools/bazel build //msm-kernel/drivers/soc/oplus/midas:*
