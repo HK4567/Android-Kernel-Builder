@@ -51,4 +51,5 @@ jobs:
           bash kernel_platform/oplus/build/oplus_build_kernel.sh
           cd kernel_platform
           tools/bazel query //msm-kernel/drivers/soc/oplus/midas:*
+          tools/bazel build //msm-kernel/drivers/soc/oplus/midas:*
           
