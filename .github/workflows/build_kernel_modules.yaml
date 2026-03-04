@@ -37,10 +37,5 @@ jobs:
       - name: "Build kernel modulse"
         run: |
           cd workspace
-          sed -i '/source vendor\/oplus\/kernel\/prebuilt\/vendorsetup.sh/s/^/#/' kernel_platform/oplus/build/oplus_setup.sh
-          source kernel_platform/oplus/build/oplus_setup.sh sun perf
-          init_build_environment
-          cd kernel_platform
-          tools/bazel query //msm-kernel/drivers/soc/oplus/midas:*
-          tools/bazel build //msm-kernel/drivers/soc/oplus/midas:*
+          
           
