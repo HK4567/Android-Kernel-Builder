@@ -49,7 +49,7 @@ jobs:
           cd workspace
           source kernel_platform/oplus/build/oplus_setup.sh sun perf
 
-          bash kernel_platform/oplus/build/oplus_build_module.sh
+          bash kernel_platform/oplus/build/oplus_build_module.sh sun perf vendor/oplus/kernel/boot/oplus_phoenix
 
           cd kernel_platform
           tools/bazel query //msm-kernel/drivers/soc/oplus/midas:*
