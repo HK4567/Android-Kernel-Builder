@@ -14,7 +14,7 @@ jobs:
       - name: Free Disk Space
         run: |
           sudo docker image prune -a -f
-        
+
       - name: "Install prerequisites"
         run: |
           sudo apt-get update
@@ -46,18 +46,18 @@ jobs:
           ls -al out
           echo "88888888888888888888888"
           tree out/
-          
-       - name: zip file
-         run: |
-           cd workspace
-           zip -r out.zip out/dist
 
-       - name: Upload Release Asset
-         uses: ncipollo/release-action@v1
-         with:
-           tag: latest
-           allowUpdates: true
-           replaceArtifacts: true 
-           artifacts: workspace/out.zip
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: zip file
+        run: |
+          cd workspace
+          zip -r out.zip out/dist
+
+      - name: Upload Release Asset
+        uses: ncipollo/release-action@v1
+        with:
+          tag: latest
+          allowUpdates: true
+          replaceArtifacts: true
+          artifacts: workspace/out.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
