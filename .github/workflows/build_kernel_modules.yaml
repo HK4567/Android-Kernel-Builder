@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@main
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Free Disk Space
         run: |
@@ -20,26 +20,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y bc gcc wget python-is-python3 rsync bison flex
 
-      - name: "Downloading repo"
+      - name: Downloading repo
         run: |
           mkdir -p ~/bin
           curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
           chmod a+x ~/bin/repo
           echo "~/bin" >> $GITHUB_PATH
 
-      - name: "Clone kernel modules"
+      - name: Clone kernel modules
         run: |
           mkdir workspace
           cd workspace
           repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b oneplus/sm8750 -m oneplus_13t_b.xml --depth=1
           repo sync -j$(nproc)
 
-      - name: "Build kernel modulse"
+      - name: Build kernel modulse
         run: |
           cd workspace
           ./kernel_platform/oplus/build/oplus_build_kernel.sh sun perf
 
-      - name: "ls dir"
+      - name: ls dir
         run: |
           cd workspace
           ls -al
@@ -47,7 +47,7 @@ jobs:
           echo "88888888888888888888888"
           tree out/
           
-       - name: zip file""
+       - name: zip file
          run: |
            cd workspace
            zip -r out.zip out/dist
