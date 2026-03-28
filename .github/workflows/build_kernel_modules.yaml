@@ -38,4 +38,10 @@ jobs:
         run: |
           cd workspace
           ./kernel_platform/oplus/build/oplus_build_kernel.sh sun perf
+
+      - name: "ls dir"
+        run: |
+          ls -al
+          ls -al out
+          
           
