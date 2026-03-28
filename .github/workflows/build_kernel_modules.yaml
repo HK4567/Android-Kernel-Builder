@@ -43,5 +43,7 @@ jobs:
         run: |
           ls -al
           ls -al out
+          echo "88888888888888888888888"
+          tree out/
           
           
