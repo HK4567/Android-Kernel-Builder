@@ -47,4 +47,16 @@ jobs:
           echo "88888888888888888888888"
           tree out/
           
+       - name: zip file""
+        run: |
+          cd workspace
+          zip -r out.zip out/dist
+
+       - name: "💙 Upload Image"
+        uses: actions/upload-artifact@v4
+        with:
+          name: out
+          path: out.zip
+          if-no-files-found: ignore
+          retention-days: 7
           
