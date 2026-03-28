@@ -48,15 +48,16 @@ jobs:
           tree out/
           
        - name: zip file""
-        run: |
-          cd workspace
-          zip -r out.zip out/dist
+         run: |
+           cd workspace
+           zip -r out.zip out/dist
 
-       - name: "💙 Upload Image"
-        uses: actions/upload-artifact@v4
-        with:
-          name: out
-          path: out.zip
-          if-no-files-found: ignore
-          retention-days: 7
-          
+       - name: Upload Release Asset
+         uses: ncipollo/release-action@v1
+         with:
+           tag: latest
+           allowUpdates: true
+           replaceArtifacts: true 
+           artifacts: workspace/out.zip
+           env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
