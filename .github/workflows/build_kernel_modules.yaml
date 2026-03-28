@@ -41,6 +41,7 @@ jobs:
 
       - name: "ls dir"
         run: |
+          cd workspace
           ls -al
           ls -al out
           echo "88888888888888888888888"
