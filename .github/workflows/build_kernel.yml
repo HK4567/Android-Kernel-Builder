@@ -117,7 +117,7 @@ jobs:
           args: ${{ steps.generate-args.outputs.args }}
         run: |
           echo "PATH Variable: $PATH"
-          
+          '''
           cd arch/arm64/configs
           sed -i "/CONFIG_PID_NS is not set/d" gki_defconfig
           sed -i "/CONFIG_MODULE_SCMVERSION/d" gki_defconfig
@@ -140,6 +140,7 @@ jobs:
           echo "CONFIG_BTRFS_FS=y" >> gki_defconfig
           echo "CONFIG_BTRFS_FS_POSIX_ACL=y" >> gki_defconfig
           cd -
+          '''
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
       - name: "🎶 Build kernel"
